@@ -11,9 +11,11 @@ extends Control
 @onready var wood_slot = $VBoxContainer/BottomUI/InventoryUI/WoodSlot/WoodImage
 
 var picked_up_axe = false
-var story_state = 0  # 0 = intro, 1 = looked, 2 = picked up axe, 3 = woodcutting unlocked
+var story_state = 0  # 0 = intro, 1 = looked, 2 = picked up axe, 3 = woodcutting unlocked, 4 = spider encounter
 var cut_wood_enabled = false
 var story_lines: Array = []
+var spider_combat_scene = preload("res://scenes/combat/spider_combat.tscn")
+var current_combat: Node2D
 
 func log_story(text: String):
 	for i in range(story_lines.size()):
@@ -28,8 +30,8 @@ func strip_bbcode(line: String) -> String:
 	return match.get_string(1) if match else line
 
 func _ready():
-	log_story("You find yourself in a small dark room.\nA fire is lit, but it’s slowly burning out.\nYou see a small pile of wood — some small enough to fit in the fire, others too large.")
-	show_image("res://assets/dark_room.png")
+	log_story("You find yourself in a small dark room.\nA fire is lit, but it's slowly burning out.\nYou see a small pile of wood — some small enough to fit in the fire, others too large.")
+	show_image("res://assets/backgrounds/dark_room.png")
 
 	stoke_button.text = "Stoke the Fire"
 	stoke_button.pressed.connect(_on_stoke_button_pressed)
@@ -45,7 +47,7 @@ func _on_stoke_button_pressed():
 
 		if story_state == 0:
 			log_story("You add some wood to the fire. It burns brighter. By the light of the fire you are able to see you are in a room.")
-			show_image("res://assets/fireplace.png")
+			show_image("res://assets/backgrounds/lite_room.png")
 			wood_button.text = "Look around the room"
 			if not wood_button.pressed.is_connected(_on_wood_button_pressed):
 				wood_button.pressed.connect(_on_wood_button_pressed)
@@ -60,25 +62,41 @@ func _on_wood_button_pressed():
 	match story_state:
 		0:
 			log_story("You see a mostly empty room — the fire, the wood pile. In the corner, you see an old axe.")
-			show_image("res://assets/axe.png")
+			show_image("res://assets/items/axe.png")
 			wood_button.text = "Pick up the axe"
 			story_state = 1
 
 		1:
 			log_story("You pick up the axe. You can now cut larger wood into logs.")
-			show_image("res://assets/wood.png")
+			show_image("res://assets/items/wood.png")
 			picked_up_axe = true
 			wood_button.text = "Cut wood from the pile"
 			story_state = 2
 			update_inventory()
 
 		2:
-			log_story("You cut some larger logs into pieces you can use in the fire.")
-			show_image("res://assets/fireplace.png")
+			log_story("You cut some larger logs into pieces you can use in the fire. Suddenly, you hear a skittering sound...")
+			show_image("res://assets/backgrounds/lite_room.png")
 			GameState.change_resource("wood", 3)
 			update_labels()
 			update_inventory()
 			story_state = 3
+			wood_button.text = "Look around"
+
+		3:
+			log_story("A spider emerges from the shadows!")
+			show_image("res://assets/enemies/spider.png")
+			wood_button.text = "Fight the spider"
+			story_state = 4
+
+		4:
+			initiate_spider_combat()
+
+		5:
+			log_story("You gather more wood using the axe.")
+			GameState.change_resource("wood", 2)
+			update_labels()
+			update_inventory()
 
 		_:
 			log_story("You gather more wood using the axe.")
@@ -117,3 +135,18 @@ func show_image(path: String):
 func hide_image():
 	var tween = get_tree().create_tween()
 	tween.tween_property(story_image, "modulate:a", 0.0, 0.5)
+
+func initiate_spider_combat():
+	current_combat = spider_combat_scene.instantiate()
+	add_child(current_combat)
+	current_combat.combat_finished.connect(_on_combat_finished)
+	wood_button.disabled = true
+
+func _on_combat_finished(victory: bool):
+	if victory:
+		log_story("You've defeated the spider!")
+		current_combat.queue_free()
+		wood_button.disabled = false
+		wood_button.text = "Cut wood from the pile"
+		story_state = 5
+		show_image("res://assets/backgrounds/lite_room.png")

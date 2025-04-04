@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ducsscxqgb6ej"]
+[gd_scene load_steps=5 format=3 uid="uid://clnd2jiyn686x"]
 
-[ext_resource type="Script" uid="uid://bjq6xv8gl1y5f" path="res://scenes/main/main.gd" id="1_h2yge"]
-[ext_resource type="Script" uid="uid://qaxrdwfhx4lw" path="res://scripts/systems/GameState.gd" id="2_h2yge"]
-[ext_resource type="Texture2D" uid="uid://mpvgwww51g22" path="res://assets/items/axe.png" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://bjq6xv8gl1y5f" path="res://scenes/main/main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://qaxrdwfhx4lw" path="res://scripts/systems/GameState.gd" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://mpvgwww51g22" path="res://assets/items/axe.png" id="3_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://l6lf83jdxkca" path="res://assets/items/wood.png" id="4_lquwl"]
 
 [node name="Main" type="Control"]
@@ -12,8 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.00185, 1)
-script = ExtResource("1_h2yge")
+script = ExtResource("1_ig7tw")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -71,7 +70,7 @@ text = "Stoke the Fire"
 [node name="WoodButton" type="Button" parent="VBoxContainer/BottomUI/UIButtons"]
 layout_mode = 2
 text = "Gather Wood"
-script = ExtResource("2_h2yge")
+script = ExtResource("2_0xm2m")
 
 [node name="InventoryUI" type="GridContainer" parent="VBoxContainer/BottomUI"]
 layout_mode = 2
@@ -106,7 +105,7 @@ layout_mode = 2
 [node name="AxeImage" type="TextureRect" parent="VBoxContainer/BottomUI/InventoryUI/AxeSlot"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-texture = ExtResource("4_1bvp3")
+texture = ExtResource("3_1bvp3")
 expand_mode = 1
 stretch_mode = 5
 

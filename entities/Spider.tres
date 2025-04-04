@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Resource" format=3]
+
+[resource]
+entity_name = "Spider"
+sprite_path = "res://assets/characters/spider.png"
+stats = {
+"health": 6,
+"attack": 3,
+"defense": 0
+} 

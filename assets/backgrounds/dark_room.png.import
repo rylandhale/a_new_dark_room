@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mpvgwww51g22"
-path="res://.godot/imported/axe.png-b3dc51e92f6a2c7984f6fe10f6ccaa2d.ctex"
+uid="uid://dyoyboinuumum"
+path="res://.godot/imported/dark_room.png-12abc2d7fdc282db171c6ffbddee1e56.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/axe.png"
-dest_files=["res://.godot/imported/axe.png-b3dc51e92f6a2c7984f6fe10f6ccaa2d.ctex"]
+source_file="res://assets/backgrounds/dark_room.png"
+dest_files=["res://.godot/imported/dark_room.png-12abc2d7fdc282db171c6ffbddee1e56.ctex"]
 
 [params]
 
