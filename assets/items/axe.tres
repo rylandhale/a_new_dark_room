@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AxeItem" load_steps=3 format=3 uid="uid://dhbgdxmlyvu8x"]
+
+[ext_resource type="Script" uid="uid://cyh45j8jwrmu8" path="res://assets/items/AxeItem.gd" id="1_ivolw"]
+[ext_resource type="Texture2D" uid="uid://mpvgwww51g22" path="res://assets/items/axe.png" id="1_m7mg8"]
+
+[resource]
+script = ExtResource("1_ivolw")
+name = "Axe"
+durability = 3
+icon = ExtResource("1_m7mg8")

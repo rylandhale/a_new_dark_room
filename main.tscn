@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ducsscxqgb6ej"]
+[gd_scene load_steps=4 format=3 uid="uid://ducsscxqgb6ej"]
 
 [ext_resource type="Script" uid="uid://bjq6xv8gl1y5f" path="res://scenes/main/main.gd" id="1_h2yge"]
-[ext_resource type="Script" uid="uid://qaxrdwfhx4lw" path="res://scripts/systems/GameState.gd" id="2_h2yge"]
-[ext_resource type="Texture2D" uid="uid://mpvgwww51g22" path="res://assets/items/axe.png" id="4_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://l6lf83jdxkca" path="res://assets/items/wood.png" id="4_lquwl"]
+[ext_resource type="PackedScene" uid="uid://j3dtttfn6lo8" path="res://scenes/ui/explore_ui.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://c0jiye2k7bjui" path="res://scenes/ui/inventory.tscn" id="3_h2yge"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -28,7 +27,7 @@ offset_right = 413.0
 offset_bottom = 302.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.99863, 1)
+scale = Vector2(1.0004, 1)
 alignment = 1
 
 [node name="TopLayer" type="HBoxContainer" parent="VBoxContainer"]
@@ -53,68 +52,12 @@ custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_stretch_ratio = 2.0
 
-[node name="UIButtons" type="VBoxContainer" parent="VBoxContainer/BottomUI"]
+[node name="ExploreUI" parent="VBoxContainer/BottomUI" instance=ExtResource("2_h2yge")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FireLabel" type="Label" parent="VBoxContainer/BottomUI/UIButtons"]
+[node name="Inventory" parent="VBoxContainer/BottomUI" instance=ExtResource("3_h2yge")]
 layout_mode = 2
-text = "🔥 Fire level: 0"
-
-[node name="WoodLabel" type="Label" parent="VBoxContainer/BottomUI/UIButtons"]
-layout_mode = 2
-
-[node name="StokeButton" type="Button" parent="VBoxContainer/BottomUI/UIButtons"]
-layout_mode = 2
-text = "Stoke the Fire"
-
-[node name="WoodButton" type="Button" parent="VBoxContainer/BottomUI/UIButtons"]
-layout_mode = 2
-text = "Gather Wood"
-script = ExtResource("2_h2yge")
-
-[node name="InventoryUI" type="GridContainer" parent="VBoxContainer/BottomUI"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Inventory"
-columns = 3
-
-[node name="Inventory" type="Label" parent="VBoxContainer/BottomUI/InventoryUI"]
-layout_mode = 2
-text = "Inventory"
-
-[node name="WoodSlot" type="VBoxContainer" parent="VBoxContainer/BottomUI/InventoryUI"]
-layout_mode = 2
-
-[node name="WoodImage" type="TextureRect" parent="VBoxContainer/BottomUI/InventoryUI/WoodSlot"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture = ExtResource("4_lquwl")
-expand_mode = 1
-stretch_mode = 5
-flip_v = true
-
-[node name="WoodLabel" type="Label" parent="VBoxContainer/BottomUI/InventoryUI/WoodSlot/WoodImage"]
-layout_mode = 2
-offset_top = 52.0
-offset_right = 48.0
-offset_bottom = 75.0
-
-[node name="AxeSlot" type="VBoxContainer" parent="VBoxContainer/BottomUI/InventoryUI"]
-layout_mode = 2
-
-[node name="AxeImage" type="TextureRect" parent="VBoxContainer/BottomUI/InventoryUI/AxeSlot"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture = ExtResource("4_1bvp3")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="AxeLabel" type="Label" parent="VBoxContainer/BottomUI/InventoryUI/AxeSlot/AxeImage"]
-layout_mode = 2
-offset_top = 52.0
-offset_right = 48.0
-offset_bottom = 75.0
 
 [node name="FireTimer" type="Timer" parent="VBoxContainer"]
 wait_time = 2.0

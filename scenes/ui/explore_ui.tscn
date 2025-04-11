@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://j3dtttfn6lo8"]
+
+[ext_resource type="Script" uid="uid://pjkwiptb24pk" path="res://scenes/ui/exploreUI.gd" id="1_4m7aa"]
+
+[node name="UIButtons" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4m7aa")
+
+[node name="FireLabel" type="Label" parent="."]
+layout_mode = 2
+text = "🔥 Fire level: 0"
+
+[node name="WoodLabel" type="Label" parent="."]
+layout_mode = 2
+
+[node name="StokeButton" type="Button" parent="."]
+layout_mode = 2
+text = "Stoke the Fire"
+
+[node name="WoodButton" type="Button" parent="."]
+layout_mode = 2
+text = "Gather Wood"
