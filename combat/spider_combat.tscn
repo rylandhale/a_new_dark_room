@@ -4,10 +4,16 @@
 [ext_resource type="Script" uid="uid://ci8ky1xoh65b8" path="res://scripts/entities/Entity.gd" id="2_3p487"]
 [ext_resource type="Texture2D" uid="uid://b2titenf1for6" path="res://assets/enemies/spider.png" id="3_tqxtg"]
 
-[node name="SpiderCombat" type="Node2D"]
+[node name="Spider" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_gs6br")
 
-[node name="Spider" type="Node2D" parent="."]
+[node name="SpiderEntity" type="Node2D" parent="."]
 script = ExtResource("2_3p487")
 entity_name = "Spider"
 sprite_path = "res://assets/enemies/spider.png"
@@ -17,60 +23,29 @@ stats = {
 "health": 6
 }
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 617.0
-offset_top = 86.0
-offset_right = 617.0
-offset_bottom = 86.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="Control"]
-layout_mode = 0
-offset_left = -613.0
-offset_top = -85.0
-offset_right = -573.0
-offset_bottom = -45.0
-scale = Vector2(31.8981, 17.85)
-color = Color(0, 0, 0, 1)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-clip_contents = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -283.0
-offset_top = -77.0
-offset_right = 417.0
-offset_bottom = 712.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.884942, 0.884942)
-alignment = 1
-
-[node name="Spider" type="TextureRect" parent="Control/VBoxContainer"]
+[node name="Spider" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(400, 400)
-layout_mode = 2
+offset_left = 1.0
+offset_top = 5.99999
+offset_right = 501.0
+offset_bottom = 506.0
 size_flags_vertical = 4
 texture = ExtResource("3_tqxtg")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="SpiderHP" type="Label" parent="Control/VBoxContainer"]
-layout_mode = 2
+[node name="SpiderHP" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -240.0
+offset_right = -326.0
+offset_bottom = -217.0
+grow_horizontal = 2
+grow_vertical = 0
 text = "Spider HP: 6"
 horizontal_alignment = 1
-
-[node name="AttackButton" type="Button" parent="Control/VBoxContainer"]
-layout_mode = 2
-text = "Attack Spider"
-
-[node name="CombatLog" type="Label" parent="Control/VBoxContainer"]
-layout_mode = 2

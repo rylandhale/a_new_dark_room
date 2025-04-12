@@ -22,3 +22,10 @@ func remove_item(item_type: String) -> bool:
 			inventory.remove_at(i)
 			return true
 	return false
+
+func count_item(item_type: String) -> int:
+	var count = 0
+	for item in inventory:
+		if item.name == item_type:
+			count += 1
+	return count

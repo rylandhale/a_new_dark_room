@@ -1,37 +1,47 @@
-extends Node2D
+extends Control
 
-@onready var combat_log = $Control/VBoxContainer/CombatLog
-@onready var spider_hp = $Control/VBoxContainer/SpiderHP
-@onready var attack_button = $Control/VBoxContainer/AttackButton
-@onready var spider: Entity = $Spider
+@onready var spider: Entity = $SpiderEntity
+@onready var spider_hp = $SpiderHP
 var combat_manager: CombatManager
 
-signal combat_finished(victory: bool)
+signal scene_finished(victory: bool)
 
 func _ready():
 	combat_manager = CombatManager.new()
-	attack_button.pressed.connect(_on_attack_pressed)
+	# Set size to fill parent container
+	custom_minimum_size = Vector2(400, 400)  # Match the size of your Spider TextureRect
+	size_flags_horizontal = SIZE_EXPAND_FILL
+	size_flags_vertical = SIZE_EXPAND_FILL
+	
+	# Ensure the spider texture is properly sized
+	if has_node("Spider"):
+		var spider_texture = $Spider as TextureRect
+		spider_texture.custom_minimum_size = Vector2(400, 400)
+		spider_texture.size_flags_horizontal = SIZE_SHRINK_CENTER
+		spider_texture.size_flags_vertical = SIZE_SHRINK_CENTER
+		
 	update_ui()
 
-func _on_attack_pressed():
-	# Create a temporary player entity for combat
+func player_attack():
 	var player = Entity.new()
 	player.entity_name = "Player"
-	player.stats = {
-		"health": 10,
-		"attack": 5,
-		"defense": 2
-	}
-	
+	player.stats = { "health": 10, "attack": 5, "defense": 2 }
+
 	var result = combat_manager.fight(player, spider)
-	combat_log.text = result
+	
+	queue_free_player(player)  # small helper for cleanup
 	update_ui()
 	
+	if is_spider_dead():
+		emit_signal("scene_finished", true)
+		
+	return result
+
+func is_spider_dead() -> bool:
+	return spider.stats.health <= 0
+
+func queue_free_player(player):
 	player.queue_free()
-	
-	if spider.stats.health <= 0:
-		await get_tree().create_timer(2.0).timeout
-		emit_signal("combat_finished", true)
 
 func update_ui():
-	spider_hp.text = "Spider HP: %d" % spider.stats.health 
+	spider_hp.text = "Spider HP: %d" % spider.stats.health

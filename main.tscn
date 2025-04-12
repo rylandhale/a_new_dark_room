@@ -11,56 +11,66 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.00185, 1)
 script = ExtResource("1_h2yge")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -387.0
-offset_top = -302.0
-offset_right = 413.0
-offset_bottom = 302.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.0004, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(1000, 650)
+layout_mode = 2
 alignment = 1
 
-[node name="TopLayer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="TopLayer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="StoryLog" type="RichTextLabel" parent="VBoxContainer/TopLayer"]
-custom_minimum_size = Vector2(300, 300)
+[node name="StoryLog" type="RichTextLabel" parent="CenterContainer/VBoxContainer/TopLayer"]
+custom_minimum_size = Vector2(500, 300)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 bbcode_enabled = true
 
-[node name="StoryImage" type="TextureRect" parent="VBoxContainer/TopLayer"]
-custom_minimum_size = Vector2(400, 400)
-layout_mode = 2
-size_flags_vertical = 0
-expand_mode = 3
-stretch_mode = 5
-
-[node name="BottomUI" type="HBoxContainer" parent="VBoxContainer"]
+[node name="StoryContainer" type="Control" parent="CenterContainer/VBoxContainer/TopLayer"]
 custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_stretch_ratio = 2.0
-
-[node name="ExploreUI" parent="VBoxContainer/BottomUI" instance=ExtResource("2_h2yge")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Inventory" parent="VBoxContainer/BottomUI" instance=ExtResource("3_h2yge")]
-layout_mode = 2
+[node name="BackgroundImage" type="TextureRect" parent="CenterContainer/VBoxContainer/TopLayer/StoryContainer"]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 500.0
+expand_mode = 1
+stretch_mode = 5
 
-[node name="FireTimer" type="Timer" parent="VBoxContainer"]
+[node name="StoryImage" type="TextureRect" parent="CenterContainer/VBoxContainer/TopLayer/StoryContainer"]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 500.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BottomUI" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 2.0
+
+[node name="ExploreUI" parent="CenterContainer/VBoxContainer/BottomUI" instance=ExtResource("2_h2yge")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Inventory" parent="CenterContainer/VBoxContainer/BottomUI" instance=ExtResource("3_h2yge")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+
+[node name="FireTimer" type="Timer" parent="CenterContainer/VBoxContainer"]
 wait_time = 2.0
 autostart = true
 
-[connection signal="timeout" from="VBoxContainer/FireTimer" to="." method="_on_fire_timer_timeout"]
+[connection signal="timeout" from="CenterContainer/VBoxContainer/FireTimer" to="." method="_on_fire_timer_timeout"]
